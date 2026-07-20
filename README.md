@@ -1,2 +1,0 @@
-# gedanke
-Gedanke Page
