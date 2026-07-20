@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お問い合わせ</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+
+    .app-name {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+
+    .description {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      background: #f9f9f9;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .description p + p {
+      margin-top: 6px;
+    }
+
+    .form-group {
+      margin-top: 28px;
+    }
+
+    label.field-label {
+      display: block;
+      font-size: 15px;
+      font-weight: bold;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+
+    .required {
+      color: #e53935;
+      margin-left: 4px;
+      font-size: 13px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .radio-item input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #7c6ff7;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .radio-item span {
+      font-size: 15px;
+      color: #333;
+    }
+
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      color: #333;
+      background: #fafafa;
+      transition: border-color 0.2s;
+    }
+
+    input[type="email"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #7c6ff7;
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 160px;
+      line-height: 1.6;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 28px 0;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: #7c6ff7;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 36px;
+      transition: background 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: #6558e0;
+    }
+
+    .submit-btn:disabled {
+      background: #bbb;
+      cursor: not-allowed;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .success-message .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .success-message h2 {
+      font-size: 20px;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+
+    .success-message p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 24px 20px;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      body {
+        padding: 0;
+        background: #fff;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <p class="app-name">Gedanke</p>
+      <h1>お問い合わせ</h1>
+      <div class="description">
+        <p>ご利用いただきありがとうございます。ご不明な点やご意見・ご要望がございましたら、以下のフォームよりお気軽にお問い合わせください。</p>
+        <p>※ お返事までに数日かかる場合がございます。</p>
+        <p>※ アカウントの削除をご希望の場合は、お問い合わせ種別で「アカウント削除の依頼」をお選びください。</p>
+      </div>
+    </div>
+
+    <form id="contactForm">
+
+      <!-- お問い合わせ種別 -->
+      <div class="form-group">
+        <label class="field-label">お問い合わせ種別<span class="required">*必須</span></label>
+        <div class="radio-group">
+          <label class="radio-item">
+            <input type="radio" name="category" value="アプリの使い方について" required>
+            <span>アプリの使い方について</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="category" value="不具合・エラーの報告">
+            <span>不具合・エラーの報告</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="category" value="アカウント削除の依頼">
+            <span>アカウント削除の依頼</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="category" value="ご意見・ご要望">
+            <span>ご意見・ご要望</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="category" value="その他">
+            <span>その他</span>
+          </label>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- メールアドレス -->
+      <div class="form-group">
+        <label class="field-label" for="email">メールアドレス<span class="required">*必須</span></label>
+        <input type="email" id="email" name="email" placeholder="example@email.com" required>
+      </div>
+
+      <hr class="divider">
+
+      <!-- お問い合わせ内容 -->
+      <div class="form-group">
+        <label class="field-label" for="message">お問い合わせ内容<span class="required">*必須</span></label>
+        <textarea id="message" name="message" placeholder="お問い合わせ内容をご入力ください" required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">送信する</button>
+
+    </form>
+
+    <!-- 送信完了メッセージ -->
+    <div class="success-message" id="successMessage">
+      <div class="icon">✉️</div>
+      <h2>お問い合わせありがとうございます</h2>
+      <p>内容を確認の上、ご連絡先メールアドレスにご返答いたします。<br><br><br><br>引き続きよろしくお願いいたします。</p>
+    </div>
+
+    <div class="footer">
+      <p>© 2026 Gedanke</p>
+    </div>
+
+  </div>
+
+  <script>
+    // 🔧 Apps ScriptのデプロイURLに置き換えてください
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycm-OWXa6sezVI1xVgU2Kjs2TXgxXyamA2Nxbxl4c3HUiCAOJw812tHbiJVHmmHDA/exec';
+
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const category = document.querySelector('input[name="category"]:checked');
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!category) {
+        alert('お問い合わせ種別を選択してください');
+        return;
+      }
+      if (!email) {
+        alert('メールアドレスを入力してください');
+        return;
+      }
+      if (!message) {
+        alert('お問い合わせ内容を入力してください');
+        return;
+      }
+
+      const btn = document.querySelector('.submit-btn');
+      btn.textContent = '送信中...';
+      btn.disabled = true;
+
+      try {
+        const formData = new FormData();
+        formData.append('category', category.value);
+        formData.append('email', email);
+        formData.append('message', message);
+
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.result === 'success') {
+          document.getElementById('contactForm').style.display = 'none';
+          document.getElementById('successMessage').style.display = 'block';
+          window.scrollTo(0, 0);
+        } else {
+          alert('送信に失敗しました。時間をおいて再度お試しください。');
+          btn.textContent = '送信する';
+          btn.disabled = false;
+        }
+      } catch (error) {
+        alert('送信に失敗しました。時間をおいて再度お試しください。');
+        btn.textContent = '送信する';
+        btn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
